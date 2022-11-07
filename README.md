@@ -1,30 +1,11 @@
 <h1 align="center">Machine Learning Projects</h1>
 
-## Table of Contents
-- [Demo](#demo)
-- [Overview](#overview)
-- [Motivation](#motivation)
-- [Projects Done](#projects-done)
-- [Upcoming Projects](#upcoming-projects)
-- [Technical Aspects](#technical-aspects)
-- [Installation](#installation)
-- [Run](#run)
-- [Deployment on Heroku](#deployment-on-heroku)
-- [Directory Tree](#directory-tree)
-- [To Do](#to-do)
-- [Bug / Feature Request](#bug--feature-request)
-- [Technologies Used](#technologies-used)
-- [Team](#team)
-- [License](#license)
-- [Credits](#credits)
 
-## Demo
-- App Link : <a href="https://ashok-machine-learning-project.herokuapp.com/" target="_blank">ashok-machine-learning-projects</a>
 
-[![All Projects](Demos/main.png)](https://ashok-machine-learning-project.herokuapp.com/)
+
 
 ## Overview
-This [repository](https://github.com/ASHOKKUMAR-K/Machine-Learning-Projects) consists of various machine learning projects in which each projects was done as end to end projects which means from Data Collection through feature engineering, feature selecion to Deployment and Maintainance. The whole app was built with Flask framework. You can launch my app by clicking <a href="https://Kisalaykisu-machine-learning-project.herokuapp.com/" target="_blank">here</a>.
+This consists of various machine learning projects in which each projects was done as end to end projects which means from Data Collection through feature engineering, feature selecion to Deployment and Maintainance. The whole app was built with Flask framework. You can launch my app by clicking <a href="https://Kisalaykisu-machine-learning-project.herokuapp.com/" target="_blank">here</a>.
 
 For building machine learning models, I have used scikit-learn alias sklearn.
 
