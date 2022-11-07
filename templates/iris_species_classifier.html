@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Iris Species Classifier{% endblock %}
+
+{% block css_links %}
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename = 'css/iris.min.css')}}">
+
+{% if iris_predicted %}
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load("current", {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
+        ["Species", "Probability", { role: "style" } ],
+        ["Setosa", {{ predict_proba[0][0] }}, "#4c72b0"],
+        ["Versicolor", {{ predict_proba[0][1] }}, "#dd8452"],
+        ["Virginica", {{ predict_proba[0][2] }}, "#55a867"]
+
+      ]);
+
+      var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+      var options = {
+        title: "Iris Species",
+        height: 450,
+        bar: {groupWidth: "80%"},
+        legend: { position: "none" },
+      };
+      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+      chart.draw(view, options);
+  }
+  </script>
+
+{% endif %}
+
+{% endblock %}
+{% block content %}
+
+<div class="container">
+	<div class="space"></div>
+	<h2 class="text-center">IRIS SPECIES CLASSIFIER</h2>
+	<div class="space"></div>
+	<div class="row">
+		<div class="col-md-6">
+			<div class="card">
+				<div class="card-body">
+					<form method="POST">
+						<div class="form-group">
+							<label for="PetalLengthCm">Petal Length (cm)</label>
+							<input name="petal_length" type="text" class="form-control" id="PetalLengthCm" aria-describedby="emailHelp" required="">
+							<small id="emailHelp" class="form-text text-muted">Length of the petal of iris flower</small>
+						</div>
+						<div class="form-group">
+							<label for="PetalWidthCm">Petal Width (cm)</label>
+							<input name="petal_width" type="text" class="form-control" id="PetalWidthCm" aria-describedby="emailHelp" required="">
+							<small id="emailHelp" class="form-text text-muted">Width of the petal of iris flower</small>
+						</div>
+						<button type="submit" class="btn btn-primary">Predict</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-6">
+			{% if iris_predicted %}
+			<div class="card">
+				<div class="card-body">
+				<div id="columnchart_values" style="width: 100%;"></div>					
+				</div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	<div class="space"></div>
+	<div class="space"></div>
+
+
+	<!-- Loan Status Modal -->
+	{% if iris_predicted %}
+	<div class="modal fade" id="loanStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Iris Species</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      	{% if iris_predicted[0] == 'Iris-setosa' %}
+	      		<div class="text-center setosa">Iris Setosa</div>
+	      	{% elif iris_predicted[0] == 'Iris-versicolor' %}
+	      		<div class="text-center versicolor">Iris Versicolor</div>
+	      	{% else %}
+	      		<div class="text-center virginica">Iris Virginica</div>
+	      	{% endif %}
+
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	{% endif %}
+
+
+
+
+</div>
+
+
+{% endblock %}
+
+
+
+{% block js_scripts %}
+	<script type="text/javascript">
+    $(window).on('load',function(){
+        $('#loanStatus').modal('show');
+    });
+</script>
+{% endblock %}
